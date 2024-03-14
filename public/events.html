@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Join exciting coding and programming events with CodeHub's interactive events calendar. Stay updated on workshops, hackathons, and meetups.">
+    <meta name="keywords" content="CodeHub, Coding Events, Programming Workshops, Hackathons, Tech Meetups">
+    <meta name="author" content="CodeHub">
+    <meta name="robots" content="index, follow">
+    <title>Events Calendar - CodeHub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo" aria-label="CodeHub Home">CodeHub</a>
+        <nav class="nav" aria-label="Main navigation">        
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="events.html" class="nav-link active">Events</a>
+            <a href="news.html" class="nav-link">News</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="profile.html" class="nav-link">Profile</a>        
+        </nav>
+    </header>
+    <main role="main">
+        <section class="calendar-container" id="calendar" aria-label="Events Calendar">
+            <nav class="calendar-nav" aria-label="Calendar navigation">
+                <button class="prev-month" aria-label="Previous Month">&#9664;</button>
+                <h2 class="calendar-month-year">March 2024</h2>
+                <button class="next-month" aria-label="Next Month">&#9654;</button>
+            </nav>
+            <div class="calendar-grid" role="grid" aria-describedby="calendar-month-year">
+                <div class="calendar-grid-header">Sun</div>
+                <div class="calendar-grid-header">Mon</div>
+                <div class="calendar-grid-header">Tue</div>
+                <div class="calendar-grid-header">Wed</div>
+                <div class="calendar-grid-header">Thu</div>
+                <div class="calendar-grid-header">Fri</div>
+                <div class="calendar-grid-header">Sat</div>
+                <!-- Days will be populated here by the events.js script -->
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2024 CodeHub. All rights reserved.</p>
+        <div class="social-links">
+            <a href="https://facebook.com" target="_blank">Facebook</a>
+            <a href="https://twitter.com" target="_blank">Twitter</a>
+            <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+            <a href="https://twitter.com/?lang=en" target="_blank">X</a>
+        </div>
+    </footer>
+    <script src="javascript/events.js"></script>
+</body>
+</html>
