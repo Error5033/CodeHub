@@ -29,3 +29,5 @@ document.addEventListener('DOMContentLoaded', function() {
         // Optionally, add more animations or redirect the user
     });
 });
+
+

@@ -605,17 +605,12 @@ body {
 
 
 
-
-
-
-
-
-
 /* ---------------Contact Form Section */
 .contact-form-section {
     width: 100%;
     max-width: 600px;
     margin: auto;
+    margin-top: 2%;
     padding: 40px;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
