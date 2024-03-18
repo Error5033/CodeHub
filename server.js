@@ -64,6 +64,37 @@ app.post('/signup-newsletter', async (req, res) => {
 });
 
 
+
+// Newsletter Signup Endpoint
+app.post('/contact-us', async (req, res) => {
+    const { email } = req.body;
+    // TODO: Store email in database
+    // Send email
+    const mailOptions = {
+        from: 'kzaksauskasss@gmail.com',
+        to: email,
+        subject: 'Thank you for signing up!',
+        text: 'We appreciate your interest in our newsletter!'
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log(error);
+            res.status(500).send('Error sending email');
+        } else {
+            console.log('Email sent: ' + info.response);
+            res.send('Thank you for signing up for our newsletter!');
+        }
+    });
+});
+
+
+
+
+
+
+
+
+
 // User Registration Endpoint
 app.post('/register', async (req, res) => {
     console.log(req.body); // This will show you the entire request body
