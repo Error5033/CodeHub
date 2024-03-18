@@ -600,3 +600,47 @@ body {
     --link-color: #4a90e2;
     --hover-color: #357abd;
 }
+
+
+
+
+
+
+
+
+
+/*----------- Additional styles for the contact form section */
+.contact-form-section {
+    padding: 2rem;
+    text-align: center;
+}
+
+.contact-form-section form {
+    margin: auto;
+    width: 50%;
+    max-width: 600px;
+}
+
+.contact-form-section input,
+.contact-form-section textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contact-form-section button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .contact-form-section form {
+        width: 80%;
+    }
+}

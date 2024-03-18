@@ -3,90 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Interactive Events Calendar at CodeHub">
-    <meta name="keywords" content="CodeHub, Events, Calendar, Coding, Programming">
+    <meta name="description" content="Contact Page - CodeHub">
+    <meta name="keywords" content="CodeHub, Contact, Email">
     <meta name="author" content="CodeHub">
-    <title>Events Calendar - CodeHub</title>
+    <title>Contact - CodeHub</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
     <header class="header">
-        <a href="index.html" class="logo">CodeHub</a>
-        <nav class="nav">
-            
-            <a href="index.html" class="nav-link active">Home</a>
-            <a href="events.html" class="nav-link">Events</a>
-            <a href="news.html" class="nav-link">News</a>
-            <a href="about.html" class="nav-link">About</a>
-            <a href="contact.html" class="nav-link">Contact</a>
-            <a href="profile.html" class="nav-link">Profile</a>
-            
-        </nav>
+        <!-- Header Content Same as Provided -->
     </header>
- 
     
-<body>
-
-
-
-    <script>
-        // Fetch HTML content
-        fetch('https://dev.events/EU')
-            .then(response => response.text())
-            .then(html => {
-                // Parse HTML
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-
-                // Extract data
-                const events = doc.querySelectorAll('.event');
-                
-                // Display data
-                const eventsContainer = document.getElementById('events-container');
-                eventsContainer.innerHTML = "<h2>Events</h2>";
-                events.forEach(event => {
-                    eventsContainer.innerHTML += event.outerHTML;
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching events:', error);
-            });
-    </script>
-
-
-</body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <footer class="footer">
-            <p>&copy; 2024 CodeHub. All rights reserved.</p>
-            <div class="social-links">
-                <a href="https://facebook.com" target="_blank">Facebook</a>
-                <a href="https://twitter.com" target="_blank">Twitter</a>
-                <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-                <a href="https://twitter.com/?lang=en" target="_blank">X</a>
-            </div>
-        </footer>
-        
+    <div class="main-content">
+        <section class="contact-form-section">
+            <h2>Contact Us</h2>
+            <form id="contact-form" class="form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
     </div>
 
+    <footer class="footer">
+        <!-- Footer Content Same as Provided -->
+    </footer>
+
+    <script src="javascript/contact.js"></script>
 </body>
 </html>
-
-
-
