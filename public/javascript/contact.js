@@ -1,19 +1,31 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const contactForm = document.getElementById('contact-form');
+    const inputs = document.querySelectorAll('input, textarea');
 
+    inputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            input.style.transform = 'translateY(-3px)';
+            input.style.transition = 'transform 0.3s';
+        });
+        input.addEventListener('blur', () => {
+            input.style.transform = 'translateY(0)';
+        });
+    });
+
+    const contactForm = document.getElementById('contact-form');
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        // Here you'd typically gather the form data and send it to your server
-        // For demo purposes, we'll just log to the console
-        const formData = new FormData(contactForm);
-        for (let [key, value] of formData.entries()) {
-            console.log(key, value);
-        }
+        // Simulating form submission here
+        console.log('Form Submitted!');
 
-        alert('Thank you for your message. We will get back to you soon!');
+        const formWrapper = document.querySelector('.contact-form-section');
+        formWrapper.innerHTML = `<h2>Thanks for contacting us!</h2><p>Your message has been sent successfully.</p>`;
+        formWrapper.style.display = 'flex';
+        formWrapper.style.flexDirection = 'column';
+        formWrapper.style.alignItems = 'center';
+        formWrapper.style.justifyContent = 'center';
+        formWrapper.style.height = '300px';
 
-        // Reset the form after submission
-        contactForm.reset();
+        // Optionally, add more animations or redirect the user
     });
 });
