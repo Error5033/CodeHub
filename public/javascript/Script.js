@@ -49,7 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
+    function userLoggedIn() {
+        return localStorage.getItem('userToken') !== null;
+    }
 
 
 

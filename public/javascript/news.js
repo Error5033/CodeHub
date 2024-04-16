@@ -84,19 +84,26 @@ function dislikeArticle(index) {
     }
 }
 
-
-
 function saveArticle(index) {
     if (!userLoggedIn()) {
         alert("You need to be logged in to save articles.");
         return;
     }
+    
     const article = fetchedArticles[index];
-
-    // Use a unique property from the article as an ID, for example, the URL
-    const articleIdentifier = article.url; // or another unique property
+    // Check if the article has a property that is a numeric ID.
+    // If it doesn't, you cannot use this function as-is. 
+    // You will need to adjust your approach to ensure a valid numeric ID can be used.
+    if (typeof article.id !== 'number') {
+        console.error('Article does not have a numeric ID, cannot save.');
+        return;
+    }
 
     const token = localStorage.getItem('userToken');
+    const payload = {
+        article_id: article.id, // Assuming 'id' is a numeric property of the article
+        article_data: JSON.stringify(article) // Convert the article object to a JSON string
+    };
 
     fetch('/api/save-article', {
         method: 'POST',
@@ -104,31 +111,24 @@ function saveArticle(index) {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         },
-        // Send the identifier as article_id and the whole article object
-        body: JSON.stringify({ article_id: articleIdentifier, article })
+        body: JSON.stringify(payload)
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok.');
+            throw new Error('HTTP error, status = ' + response.status);
         }
         return response.json();
     })
     .then(data => {
-        if (data.error) {
-            throw new Error(data.error);
+        if (data.message) {
+            alert('Article saved successfully.');
+            // Further UI handling here
+        } else {
+            throw new Error('Error saving article.');
         }
-        const saveBtn = document.getElementById(`save-btn-${index}`);
-        saveBtn.disabled = true;
-        saveBtn.textContent = 'Saved';
     })
     .catch(error => {
         console.error('Error:', error);
         alert('Error saving article. Please try again.');
     });
-}
-
-
-
-function userLoggedIn() {
-    return localStorage.getItem('userToken') !== null;
 }

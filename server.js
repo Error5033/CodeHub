@@ -8,12 +8,12 @@ const jwt = require('jsonwebtoken'); // Include JWT for session management
 
 const app = express();
 const port = 3000;
-// MySQL Database Connection
+// --------------------------------------------------------------- MySQL Database Connection
 const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
+    host: '127.0.0.1',
+    user: 'root',
+    password: 'Zaksauskas123',
+    database: 'codeh'
 });
 db.connect((err) => {
     if (err) {
@@ -23,16 +23,16 @@ db.connect((err) => {
     console.log('Connected to MySQL');
 });
 
-// Middleware setup
+// // ---------------------------------------------------------------Middleware setup
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve static files from the 'public' directory (if you have one)
+// // ---------------------------------------------------------------Serve static files from the 'public' directory (if you have one)
 app.use(express.static('public'));
 
 
 
-// Nodemailer Setup
+// // --------------------------------------------------------------- Nodemailer Setup
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -44,7 +44,7 @@ const transporter = nodemailer.createTransport({
 
 
 
-// Contact Form Submission Endpoint
+// // --------------------------------------------------------------- Contact Form Submission Endpoint
 app.post('/send-contact-email', (req, res) => {
     const { name, email, message } = req.body;
     const mailOptions = {
@@ -70,7 +70,7 @@ app.post('/send-contact-email', (req, res) => {
 
 
 
-// User Registration Endpoint
+//  // --------------------------------------------------------------- User Registration Endpoint
 app.post('/register', async (req, res) => {
     console.log(req.body); // This will show you the entire request body
     console.log(typeof req.body.password); // Specifically checks the type of the password
@@ -105,10 +105,10 @@ app.post('/register', async (req, res) => {
     }
 });
 
-// JWT Secret Key
+// JWT// ---------------------------------------------------------------  Secret Key
 const JWT_SECRET = 'https://jwt.io/#debugger-io?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.XbPfbIHMI6arZ3Y922BhjWgQzWXcXNrz0ogtVhfEd2o';
 
-// User Login Endpoint
+// // --------------------------------------------------------------- User Login Endpoint
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
     const query = 'SELECT * FROM users WHERE username = ?';
@@ -127,14 +127,15 @@ app.post('/login', (req, res) => {
 
         if (match) {
             const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '1h' });
-            res.json({ message: 'Login Successful', token });
+            // Make sure to include the user's ID in the response
+            res.json({ message: 'Login Successful', token, userId: user.id });
         } else {
             res.status(401).send('Username or password is incorrect');
         }
     });
 });
 
-// User Info Endpoint
+// // --------------------------------------------------------------- User Info Endpoint
 app.get('/api/user-info', (req, res) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
@@ -158,19 +159,22 @@ app.get('/api/user-info', (req, res) => {
 
 
 
-// Save user's article to their profile
+// // ---------------------------------------------------------------Save user's article to their profile
 app.post('/api/save-article', (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
-    const { article } = req.body;  // Assuming 'article' contains 'article_id'
+    const { article_id, article_data } = req.body;
 
-    if (!article || !article.article_id) {
-        return res.status(400).json({ error: 'Article or Article ID not provided' });
+    // Check if the article_id is null or undefined
+    if (article_id == null) {
+        return res.status(400).json({ error: 'article_id cannot be null' });
     }
 
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
+
+        // Insert article_id and article_data into the saved_articles table
         const insertQuery = `INSERT INTO saved_articles (user_id, article_id, article_data) VALUES (?, ?, ?)`;
-        db.query(insertQuery, [decoded.userId, article.article_id, JSON.stringify(article)], (err, results) => {
+        db.query(insertQuery, [decoded.userId, article_id, JSON.stringify(article_data)], (err, results) => {
             if (err) {
                 console.error('Database error:', err);
                 return res.status(500).json({ error: 'Error saving article' });
@@ -182,6 +186,7 @@ app.post('/api/save-article', (req, res) => {
         res.status(401).json({ error: 'Invalid token' });
     }
 });
+
 
 
 
@@ -205,6 +210,49 @@ app.get('/api/events', async (req, res) => {
         res.status(500).send('Error fetching events');
     }
 });
+
+
+
+
+
+
+// Endpoint to handle likes
+app.post('/api/articles/:id/like', (req, res) => {
+    const articleId = req.params.id;
+    const userId = getUserIdFromToken(req); // Implement this function based on your authentication strategy
+
+    // You should check if the user has already liked the article to prevent multiple likes
+    // For simplicity, this code does not include that check
+
+    const updateQuery = 'UPDATE articles SET likes = likes + 1 WHERE article_id = ?';
+
+    db.query(updateQuery, [articleId], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Error updating likes' });
+        }
+        res.json({ message: 'Like added successfully' });
+    });
+});
+
+// Endpoint to handle dislikes
+app.post('/api/articles/:id/dislike', (req, res) => {
+    const articleId = req.params.id;
+    const userId = getUserIdFromToken(req); // Implement this function based on your authentication strategy
+
+    // As above, check if the user has already disliked the article
+
+    const updateQuery = 'UPDATE articles SET dislikes = dislikes + 1 WHERE article_id = ?';
+
+    db.query(updateQuery, [articleId], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Error updating dislikes' });
+        }
+        res.json({ message: 'Dislike added successfully' });
+    });
+});
+
+
+
 
 
 
