@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function fetchNews(category = 'all') {
         currentCategory = category;
         const apiKey = '5890ffdbb9434244b5e1dc95cdaf1a81'; // Replace with your actual API key
-        const apiUrl = `https://newsapi.org/v2/everything?q=${category}&apiKey=${apiKey}`;
+        const apiUrl = `https://newsapi.org/v2/everything?q=${category}&language=en&apiKey=${apiKey}`;
 
         fetch(apiUrl)
             .then(response => response.json())
