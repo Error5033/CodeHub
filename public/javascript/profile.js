@@ -81,14 +81,30 @@ function fetchSavedArticles() {
         console.error('Error fetching saved articles:', error);
     });
 }
-
 function displaySavedArticles(articles) {
     const favoritesContainer = document.getElementById('favoriteArticles');
-    favoritesContainer.innerHTML = '';
+    favoritesContainer.innerHTML = ''; // Clear the container
 
     articles.forEach(article => {
         const listItem = document.createElement('li');
-        listItem.textContent = article.title || 'No title';
+
+        // Assuming that article title and url are available on the article object
+        const title = article.title || 'Article';
+        const url = article.url; // This should be a valid URL from your article_id
+
+        listItem.innerHTML = `
+            <div class="news-content">
+                <h2>${title}</h2>
+                <p><a href="${url}" target="_blank">Read more</a></p>
+            </div>
+        `;
+
+        // Append the list item to the container
         favoritesContainer.appendChild(listItem);
     });
 }
+
+// Make sure this event listener is not duplicated
+document.addEventListener('DOMContentLoaded', () => {
+    fetchSavedArticles(); // This function should fetch articles from '/api/saved-articles' and then call displaySavedArticles with the result
+});

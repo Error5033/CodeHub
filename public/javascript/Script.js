@@ -49,13 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    function userLoggedIn() {
-        return localStorage.getItem('userToken') !== null;
-    }
-
-
-
-
     document.getElementById('register-form').addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -114,6 +107,56 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+    const element = document.querySelector('.element-class');
+    if (element) {
+        // Safe to use `element` here
+    }
+    
+
+
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const element = document.querySelector('.element-class');
+        if (element) {
+            // Element exists, safe to manipulate
+            // ... your code that manipulates the element ...
+        }
+        // ... other code ...
+    });
+
+
+
+
+
+
+
+
+
 
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function userLoggedIn() {
+    return localStorage.getItem('userToken') !== null;
+}

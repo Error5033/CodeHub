@@ -216,6 +216,52 @@ app.get('/api/events', async (req, res) => {
 
 
 
+
+app.get('/api/saved-articles', (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const userId = decoded.userId;
+
+        const query = 'SELECT id, article_id, article_data FROM saved_articles WHERE user_id = ?';
+        db.query(query, [userId], (err, results) => {
+            if (err) {
+                console.error('Database error:', err);
+                return res.status(500).json({ error: 'Error retrieving saved articles' });
+            }
+            // Assuming article_data is stored as a JSON string, parse it to return as an object
+            const articles = results.map(row => ({
+                id: row.id,
+                url: row.article_id,
+                ...JSON.parse(row.article_data || '{}') // Safely parse the article_data
+            }));
+            res.json(articles);
+        });
+    } catch (error) {
+        console.error('JWT error:', error);
+        res.status(401).json({ error: 'Invalid token' });
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Endpoint to handle likes
 app.post('/api/articles/:id/like', (req, res) => {
     const articleId = req.params.id;

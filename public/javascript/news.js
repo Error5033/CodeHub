@@ -83,26 +83,21 @@ function dislikeArticle(index) {
         return;
     }
 }
-
+// In news.js
 function saveArticle(index) {
     if (!userLoggedIn()) {
         alert("You need to be logged in to save articles.");
         return;
     }
-    
-    const article = fetchedArticles[index];
-    // Check if the article has a property that is a numeric ID.
-    // If it doesn't, you cannot use this function as-is. 
-    // You will need to adjust your approach to ensure a valid numeric ID can be used.
-    if (typeof article.id !== 'number') {
-        console.error('Article does not have a numeric ID, cannot save.');
-        return;
-    }
 
+    const article = fetchedArticles[index];
     const token = localStorage.getItem('userToken');
     const payload = {
-        article_id: article.id, // Assuming 'id' is a numeric property of the article
-        article_data: JSON.stringify(article) // Convert the article object to a JSON string
+        article_id: article.url, // Ensure this is a URL
+        article_data: JSON.stringify({
+            title: article.title, // Make sure you are saving the title
+            // Include any other relevant info you need
+        })
     };
 
     fetch('/api/save-article', {
@@ -132,3 +127,4 @@ function saveArticle(index) {
         alert('Error saving article. Please try again.');
     });
 }
+
