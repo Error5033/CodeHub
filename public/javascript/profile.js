@@ -81,6 +81,8 @@ function fetchSavedArticles() {
         console.error('Error fetching saved articles:', error);
     });
 }
+
+
 function displaySavedArticles(articles) {
     const favoritesContainer = document.getElementById('favoriteArticles');
     favoritesContainer.innerHTML = ''; // Clear the container
@@ -103,6 +105,13 @@ function displaySavedArticles(articles) {
         favoritesContainer.appendChild(listItem);
     });
 }
+
+// Make sure this event listener is not duplicated
+document.addEventListener('DOMContentLoaded', () => {
+    fetchSavedArticles(); // This function should fetch articles from '/api/saved-articles' and then call displaySavedArticles with the result
+});
+
+// ...
 
 // Make sure this event listener is not duplicated
 document.addEventListener('DOMContentLoaded', () => {
