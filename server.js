@@ -215,8 +215,6 @@ app.get('/api/events', async (req, res) => {
 
 
 
-
-
 app.get('/api/saved-articles', (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
 
@@ -243,8 +241,6 @@ app.get('/api/saved-articles', (req, res) => {
         res.status(401).json({ error: 'Invalid token' });
     }
 });
-
-
 
 
 
