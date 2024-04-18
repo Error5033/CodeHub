@@ -13,35 +13,28 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 
         fetchAndDisplayEvents: async function() {
-            const rapidAPIKey = '7500e03755mshd6dfeb9e7696dbep15b2c6jsn463e282ead72';
-            const queryKeywords = ['Software']; // The topics you're interested in
-            const query = encodeURIComponent(queryKeywords.join(' OR '));
-            const url = `https://real-time-events-search.p.rapidapi.com/search-events?query=${query}&start=0`;
+            const url = '/api/events'; // The endpoint on your server
         
             try {
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'X-RapidAPI-Key': '7500e03755mshd6dfeb9e7696dbep15b2c6jsn463e282ead72',
-                        'X-RapidAPI-Host': 'real-time-events-search.p.rapidapi.com'
-                    }
-                });
+                const response = await fetch(url);
                 if (!response.ok) throw new Error('Failed to fetch events');
         
-                const data = await response.json();
-                this.events = data.data.map(event => ({ // Ensure this matches the API response structure
-                    date: new Date(event.start_time), // Convert to Date object
-                    name: event.name,
-                    description: event.description,
-                    link: event.link,
-                    // You can add more properties here as needed
+                const events = await response.json();
+                this.events = events.map(event => ({
+                    // Ensure these fields match the actual structure of the Eventbrite event objects
+                    date: new Date(event.start.utc), // Adjust according to Eventbrite's response format
+                    name: event.name.text,
+                    description: event.description.text,
+                    link: event.url,
                 }));
                 this.displayEventsOnCalendar();
             } catch (error) {
                 console.error('Error fetching events:', error);
-                // Here you can update the UI to inform the user that the event fetch has failed
+                // Handle errors appropriately in the UI
             }
         },
+        
+        
         
         displayEventsOnCalendar: function() {
             this.events.forEach(event => {

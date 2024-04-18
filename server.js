@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken'); // Include JWT for session management
-
+const fetch = require('node-fetch'); // Ensure you have 'node-fetch' installed
 
 const app = express();
 const port = 3000;
@@ -164,17 +164,16 @@ app.post('/api/save-article', (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
     const { article_id, article_data } = req.body;
 
-    // Check if the article_id is null or undefined
     if (article_id == null) {
         return res.status(400).json({ error: 'article_id cannot be null' });
     }
 
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
-
-        // Insert article_id and article_data into the saved_articles table
         const insertQuery = `INSERT INTO saved_articles (user_id, article_id, article_data) VALUES (?, ?, ?)`;
-        db.query(insertQuery, [decoded.userId, article_id, JSON.stringify(article_data)], (err, results) => {
+        // Ensure that article_data is a stringified JSON
+        const articleDataString = typeof article_data === 'string' ? article_data : JSON.stringify(article_data);
+        db.query(insertQuery, [decoded.userId, article_id, articleDataString], (err, results) => {
             if (err) {
                 console.error('Database error:', err);
                 return res.status(500).json({ error: 'Error saving article' });
@@ -190,26 +189,34 @@ app.post('/api/save-article', (req, res) => {
 
 
 
+
+
+
 app.get('/api/events', async (req, res) => {
+    const url = 'https://www.eventbriteapi.com/v3/events/search/?q=technology&sort_by=date';
+    const options = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer EVXNHRGMGNCGJDS4CUQR', // Replace with your actual token
+            'Content-Type': 'application/json'
+        }
+    };
+
     try {
-        const options = {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': '7500e03755mshd6dfeb9e7696dbep15b2c6jsn463e282ead72',
-                'X-RapidAPI-Host': 'calendars.p.rapidapi.com'
-            }
-        };
-        const response = await fetch('https://calendars.p.rapidapi.com/ical_fetch?c=US&json=true', options);
+        const response = await fetch(url, options);
         if (!response.ok) {
-            throw new Error('Failed to fetch events');
+            throw new Error(`Eventbrite API error: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
-        res.json(data);
+        res.json(data.events);
     } catch (error) {
         console.error('Error fetching events:', error);
         res.status(500).send('Error fetching events');
     }
 });
+
+
+
 
 
 

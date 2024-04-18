@@ -83,7 +83,7 @@ function dislikeArticle(index) {
         return;
     }
 }
-// In news.js
+
 function saveArticle(index) {
     if (!userLoggedIn()) {
         alert("You need to be logged in to save articles.");
@@ -92,12 +92,14 @@ function saveArticle(index) {
 
     const article = fetchedArticles[index];
     const token = localStorage.getItem('userToken');
+    const articleData = {
+        title: article.title,
+        // Include other data as needed
+    };
+
     const payload = {
-        article_id: article.url, // Ensure this is a URL
-        article_data: JSON.stringify({
-            title: article.title, // Make sure you are saving the title
-            // Include any other relevant info you need
-        })
+        article_id: article.url,
+        article_data: articleData // Do not stringify here
     };
 
     fetch('/api/save-article', {
@@ -127,4 +129,3 @@ function saveArticle(index) {
         alert('Error saving article. Please try again.');
     });
 }
-

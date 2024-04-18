@@ -83,43 +83,45 @@ function fetchSavedArticles() {
 }
 
 
+
 function displaySavedArticles(articles) {
     const favoritesContainer = document.getElementById('favoriteArticles');
-    favoritesContainer.innerHTML = ''; // Clear the container
+    favoritesContainer.innerHTML = ''; // Clear any existing content
+
+    console.log('Saved Articles:', articles); // Log the raw article data
 
     articles.forEach(article => {
+        console.log('Raw Article Data:', article.article_data); // Log raw data
+
+        // Ensure article_data is an object by parsing the JSON string from the database
+        let articleDetails = {};
+        if (article.article_data) {
+            try {
+                articleDetails = JSON.parse(article.article_data);
+                console.log('Parsed Article Details:', articleDetails); // Log parsed details
+            } catch (error) {
+                console.error('Error parsing article data:', error);
+                // If parsing fails, provide default details
+                articleDetails = {
+                    title: 'Article Title Not Found', // Provide a default title
+                };
+            }
+        }
+
+        // Use the title from articleDetails, if available
+        const title = articleDetails.title || 'No Title'; // Default to 'No Title' if title is not provided
+
+        // Create list item and set its innerHTML to include the title and a "Read more" link
         const listItem = document.createElement('li');
-
-        // Assuming that article title and url are available on the article object
-        const title = article.title || 'Article';
-        const url = article.url; // This should be a valid URL from your article_id
-
-        listItem.innerHTML = `
-            <div class="news-content">
-                <h2>${title}</h2>
-                <p><a href="${url}" target="_blank">Read more</a></p>
-            </div>
-        `;
-
-        // Append the list item to the container
+        listItem.innerHTML = `${title} - <a href="${article.url}" target="_blank">Read more</a>`;
         favoritesContainer.appendChild(listItem);
     });
 }
 
-// Make sure this event listener is not duplicated
-document.addEventListener('DOMContentLoaded', () => {
-    fetchSavedArticles(); // This function should fetch articles from '/api/saved-articles' and then call displaySavedArticles with the result
-});
-
-// ...
-
-// Make sure this event listener is not duplicated
-document.addEventListener('DOMContentLoaded', () => {
-    fetchSavedArticles(); // This function should fetch articles from '/api/saved-articles' and then call displaySavedArticles with the result
-});
 
 
-// Make sure this event listener is not duplicated
-document.addEventListener('DOMContentLoaded', () => {
-    fetchSavedArticles(); // This function should fetch articles from '/api/saved-articles' and then call displaySavedArticles with the result
-});
+// Assuming fetchSavedArticles is correctly fetching the articles array
+document.addEventListener('DOMContentLoaded', fetchSavedArticles);
+
+
+
