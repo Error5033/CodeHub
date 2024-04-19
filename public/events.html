@@ -25,20 +25,16 @@
     </header>
     <main role="main">
         <section class="calendar-container" id="calendar" aria-label="Events Calendar">
+            <!-- Calendar navigation for previous and next month -->
             <nav class="calendar-nav" aria-label="Calendar navigation">
                 <button class="prev-month" aria-label="Previous Month">&#9664;</button>
                 <h2 class="calendar-month-year">March 2024</h2>
                 <button class="next-month" aria-label="Next Month">&#9654;</button>
             </nav>
+            <!-- The calendar grid where days and events will be populated -->
             <div class="calendar-grid" role="grid" aria-describedby="calendar-month-year">
-                <div class="calendar-grid-header">Sun</div>
-                <div class="calendar-grid-header">Mon</div>
-                <div class="calendar-grid-header">Tue</div>
-                <div class="calendar-grid-header">Wed</div>
-                <div class="calendar-grid-header">Thu</div>
-                <div class="calendar-grid-header">Fri</div>
-                <div class="calendar-grid-header">Sat</div>
-                <!-- Days will be populated here by the events.js script -->
+                <!-- Day headers are static, but days and events will be dynamic -->
+                <!-- Days and events will be inserted here by events.js -->
             </div>
         </section>
     </main>

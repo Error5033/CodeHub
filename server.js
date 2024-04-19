@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken'); // Include JWT for session management
 const fetch = require('node-fetch'); // Ensure you have 'node-fetch' installed
+const axios = require('axios');
+
 
 const app = express();
 const port = 3000;
@@ -190,33 +192,25 @@ app.post('/api/save-article', (req, res) => {
 
 
 
-
-
-app.get('/api/events', async (req, res) => {
-    const url = 'https://www.eventbriteapi.com/v3/events/search/?q=technology&sort_by=date';
+app.get('/api/economic-events', async (req, res) => {
     const options = {
         method: 'GET',
+        url: 'https://economic-events-calendar.p.rapidapi.com/events',
+        params: { countries: 'GB' },
         headers: {
-            'Authorization': 'Bearer EVXNHRGMGNCGJDS4CUQR', // Replace with your actual token
-            'Content-Type': 'application/json'
+            'X-RapidAPI-Key': '7500e03755mshd6dfeb9e7696dbep15b2c6jsn463e282ead72',
+            'X-RapidAPI-Host': 'economic-events-calendar.p.rapidapi.com'
         }
     };
 
     try {
-        const response = await fetch(url, options);
-        if (!response.ok) {
-            throw new Error(`Eventbrite API error: ${response.status} ${response.statusText}`);
-        }
-        const data = await response.json();
-        res.json(data.events);
+        const response = await axios.request(options);
+        res.json(response.data);
     } catch (error) {
-        console.error('Error fetching events:', error);
-        res.status(500).send('Error fetching events');
+        console.error(error);
+        res.status(500).send('Failed to fetch economic events');
     }
 });
-
-
-
 
 
 

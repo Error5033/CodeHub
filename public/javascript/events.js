@@ -13,38 +13,33 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 
         fetchAndDisplayEvents: async function() {
-            const url = '/api/events'; // The endpoint on your server
-        
             try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Failed to fetch events');
-        
-                const events = await response.json();
-                this.events = events.map(event => ({
-                    // Ensure these fields match the actual structure of the Eventbrite event objects
-                    date: new Date(event.start.utc), // Adjust according to Eventbrite's response format
-                    name: event.name.text,
-                    description: event.description.text,
-                    link: event.url,
+                const response = await fetch('/api/economic-events');
+                if (!response.ok) throw new Error('Failed to fetch economic events');
+
+                const data = await response.json();
+                this.events = data.result.map(event => ({
+                    // Adjust these properties to match the Economic Events Calendar API structure
+                    date: new Date(event.date), // The event date
+                    name: event.title, // The event title
+                    comment: event.comment, // The event comment
+                    // Other properties can be added as needed
                 }));
                 this.displayEventsOnCalendar();
             } catch (error) {
-                console.error('Error fetching events:', error);
-                // Handle errors appropriately in the UI
+                console.error('Error fetching economic events:', error);
             }
         },
-        
-        
-        
+
         displayEventsOnCalendar: function() {
             this.events.forEach(event => {
-                const eventDate = new Date(event.date);
-                const dayCell = this.calendarContainer.querySelector(`[data-date="${eventDate.toISOString().slice(0, 10)}"]`);
+                const eventDate = event.date.toISOString().slice(0, 10);
+                const dayCell = this.calendarContainer.querySelector(`[data-date="${eventDate}"]`);
                 if (dayCell) {
                     const eventElement = document.createElement('div');
                     eventElement.className = 'event-detail';
                     eventElement.textContent = event.name; // Display the event name
-                    // Tooltip or modal can be added here to show event.description on hover or click
+                    // Tooltip or modal can be added here to show event.comment on hover or click
                     dayCell.appendChild(eventElement);
                 }
             });
@@ -64,17 +59,15 @@ document.addEventListener('DOMContentLoaded', function() {
             this.clearCalendar();
             const monthStart = new Date(date.getFullYear(), date.getMonth(), 1);
             const monthEnd = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-            const startDate = monthStart.getDay(); // Day of week the month starts on
-            const endDate = monthEnd.getDate(); // Last date of the month
+            const startDate = monthStart.getDay();
+            const endDate = monthEnd.getDate();
 
             this.calendarMonthYear.textContent = `${date.toLocaleString('default', { month: 'long' })} ${date.getFullYear()}`;
 
-            // Fill in the blanks for days of the week until the first day of the month
             for (let i = 0; i < startDate; i++) {
                 this.calendarContainer.appendChild(document.createElement('div')).className = 'calendar-day spacer';
             }
 
-            // Fill in the actual days of the month
             for (let day = 1; day <= endDate; day++) {
                 const dayCell = document.createElement('div');
                 dayCell.className = 'calendar-day';
@@ -84,12 +77,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.calendarContainer.appendChild(dayCell);
             }
 
-            this.displayEventsOnCalendar(); // Attempt to display events after generating the calendar
+            this.displayEventsOnCalendar();
         },
 
         clearCalendar: function() {
-            this.calendarContainer.innerHTML = ''; // Clear the calendar HTML
-            this.renderDayHeaders(); // Re-render day headers
+            this.calendarContainer.innerHTML = '';
+            this.renderDayHeaders();
         },
 
         attachEventListeners: function() {
@@ -106,3 +99,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     Calendar.init();
 });
+
