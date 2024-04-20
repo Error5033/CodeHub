@@ -1,7 +1,7 @@
-/* Google Font Import */
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-/* Reset Styles */
+
 * {
     margin: 0;
     padding: 0;
@@ -9,9 +9,9 @@
     font-family: 'Roboto', sans-serif;
 }
 
-/* Utility Classes */
+
 .btn {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50; 
     color: white;
     padding: 10px 20px;
     border: none;
@@ -25,28 +25,28 @@
     transform: scale(1.05);
 }
 
-/* Header Styles */
+
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2%;
-    background-color: #333; /* Dark header background */
+    background-color: #333; 
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .logo {
-    color: #ff5722; /* Stylish orange for logo */
+    color: #ff5722; 
     font-weight: 700;
     font-size: 1.8rem;
 }
 .nav-link {
-    color: #ddd; /* Light color for contrast */
+    color: #ddd; 
     text-decoration: none;
     margin-left: 2rem;
     transition: color 0.3s;
 }
 .nav-link:hover, .nav-link.active {
-    color: #4CAF50; /* Green for active/hover state */
+    color: #4CAF50; 
 }
 
 /* Home Page Specific Styles -------------------------------------------------------------------------------------------------*/
@@ -75,7 +75,7 @@
 /* Signup Page Specific Styles --------------------------------------------------------------------------------------*/
 
 .signup-container {
-    background-color: #f8f8f8;  /* Light grey background */
+    background-color: #f8f8f8;  
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -110,10 +110,8 @@
 
 /* Register/Login Page Specific Styles --------------------------------------------------------------------------------------*/
 
-
-/* Login/Register Section Styling */
 .login-register-section {
-    background-color: #f8f8f8; /* Match the newsletter section background */
+    background-color: #f8f8f8; 
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -123,7 +121,7 @@
 }
 
 .btn-toggle {
-    background-color: #007bff; /* A distinct color for toggling buttons */
+    background-color: #007bff; 
     color: white;
     padding: 10px 20px;
     margin: 10px;
@@ -134,14 +132,12 @@
 }
 
 .btn-toggle:hover {
-    background-color: #0056b3; /* Darker shade for hover */
+    background-color: #0056b3;
 }
 
 .form-hidden {
-    display: none; /* Initially hide the forms */
+    display: none; 
 }
-
-/*  Form Styling */
 #login-form, #register-form {
 
     flex-direction: column;
@@ -164,25 +160,15 @@
     margin-bottom: 10px;
 }
 
-/* Responsive Design for Smaller Screens */
 @media (max-width: 768px) {
     .login-register-section {
-        width: 80%; /* Adjust width for mobile view */
+        width: 80%; 
     }
 }
 
 
 
 /* news Styles -----------------------------------------------------------------------------------------------------*/
-
-
-
-
-
-
-
-
-
 
 .news-feed {
     display: flex;
@@ -195,7 +181,7 @@
     background-color: #ffffff;
     padding: 1rem;
     margin-bottom: 1rem;
-    width: 80%; /* Adjust based on your design */
+    width: 80%; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
   }
@@ -221,40 +207,39 @@
     text-decoration: underline;
   }
   
-  /* Add media queries for responsiveness */
+
   @media (max-width: 768px) {
     .news-item {
-      width: 95%; /* Increase width for mobile devices */
+      width: 95%; 
     }
   }
   
 
   .news-filter {
-    /* Other styles */
-    background-color: #eaeaea; /* A neutral background color */
+    background-color: #eaeaea; 
     padding: 0;
     margin-bottom: 1rem;
 }
 
 .filter-btn {
-    background-color: transparent; /* Start with no background */
+    background-color: transparent; 
     color: #333;
     padding: 10px 20px;
     border: none;
-    border-bottom: 2px solid transparent; /* Add a border to indicate active state */
+    border-bottom: 2px solid transparent; 
     margin: 0;
     font-weight: bold;
-    text-transform: uppercase; /* Optional: style preference */
+    text-transform: uppercase; 
 }
 
 .filter-btn:hover, .filter-btn.active {
-    color: #007bff; /* Highlight color */
-    border-bottom-color: #007bff; /* Color for the active tab */
+    color: #007bff; 
+    border-bottom-color: #007bff;
 }
 
 body {
-    background-color: #f2f2f2; /* Light background for the news feed */
-    color: #333; /* Main text color */
+    background-color: #f2f2f2; 
+    color: #333; 
 }
 
 
@@ -299,7 +284,7 @@ body {
 }
 
 .article-actions button.saved {
-    color: gold; /* Highlight color when saved */
+    color: gold; 
 }
 
 /* Styles for like/dislike counts */
@@ -319,9 +304,6 @@ body {
 /* Profile Styles -----------------------------------------------------------------------------------------------------*/
 
 
-
-
-/* Profile Container */
 .profile-container {
     max-width: 800px;
     margin: 40px auto;
@@ -367,7 +349,6 @@ body {
     font-size: 1.3rem;
 }
 
-/* User Favorites Section */
 .user-favorites {
     background: #e7e7e7;
     padding: 20px;
@@ -397,12 +378,12 @@ body {
 
 .sign-out-btn {
     padding: 10px 20px;
-    background-color: #f44336; /* Red color for sign-out */
+    background-color: #f44336; 
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 20px; /* Adjust as needed */
+    margin-top: 20px; 
 }
 
 .sign-out-btn:hover {
@@ -428,103 +409,142 @@ body {
 /* Events Styles --------------------------------------------------------------------------------*/
 
 
-/* Calendar Styles */
+
+
+
+
+
 .calendar-main {
-    padding-top: 1%;
+    display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 60px);
-    background-color: #f5f5f5;
+    height: 100vh;
+    padding-top: 2%;
+    background-color: var(--background-color);
 }
 
 .calendar-container {
-    max-width: 900px; /* Adjusted for better fit */
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+
+    width: 80%;
+    max-width: 900px; /* Adjust for better fit */
+    margin:  2% auto auto auto; 
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: visible; /* Make sure this is set */
+    position: relative; /* Needed for absolute positioning of children */
 }
 
 .calendar-nav {
+
+
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    padding: 1rem;
+    background: #4a90e2;
+    color: #ffffff;
 }
 
 .calendar-month-year {
     font-size: 1.5rem;
-    text-align: center;
+    font-weight: 500;
 }
 
 .prev-month, .next-month {
+    cursor: pointer;
     background: none;
     border: none;
+    color: #ffffff;
+    font-weight: 700;
     font-size: 1.5rem;
-    cursor: pointer;
 }
 
 .prev-month:hover, .next-month:hover {
-    background-color: #e0e0e0; /* Subtle hover effect */
+    color: #dcdcdc;
 }
 
+/* Calendar Grid */
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 5px; /* Reduced gap for a more compact look */
+    text-align: center;
 }
 
 .calendar-grid-header {
-    text-align: center;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    font-weight: bold;
+    background: #4a90e2;
+    color: #ffffff;
+    padding: 0.75rem 0;
+    font-weight: 500;
 }
 
+
+
+/* Event Styles */
+.event-detail {
+    background-color: #4a90e2;
+    color: #ffffff;
+    padding: 0.5rem;
+    border-radius: 4px;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 100; /* Adjust z-index as necessary */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+
+
 .calendar-day {
-    padding: 15px;
-    background-color: #eaeaea;
-    text-align: center;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    min-height: 80px; /* Increased cell height for better look */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Neumorphism effect */
+    position: relative;
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid #eaeaea;
+    transition: background-color 0.3s;
+    position: relative;
+    overflow: visible; /* Make sure children aren't clipped */
+
 }
 
 .calendar-day:hover {
-    background-color: #d0d0d0;
+    background-color: #eaeaea;
 }
 
-/* Footer Styles */
-.footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+
+
+
+.calendar-day:hover .event-detail {
+    display: block;
 }
 
-.social-links a {
-    color: white;
-    margin: 0 10px;
-    text-decoration: none;
+
+
+.calendar-day.has-event::after {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
 
-.social-links a:hover {
-    color: #1da1f2;
-}
 
 /* Responsiveness */
 @media (max-width: 768px) {
-    .calendar-nav h2 {
+    .calendar-container {
+        width: 95%;
+    }
+
+    .calendar-day {
+        padding: 1rem 0.5rem;
+    }
+
+    .calendar-month-year {
         font-size: 1.2rem;
     }
 
@@ -532,80 +552,46 @@ body {
         font-size: 1.2rem;
     }
 
-    .calendar-grid {
-        gap: 3px; /* Reduced gap for smaller screens */
-    }
-
-    .calendar-day {
-        padding: 10px;
-        min-height: 50px; /* Adjusted for smaller screens */
+    .event-detail {
+        font-size: 0.8rem;
     }
 }
 
-.calendar-day.not-current-month {
-    color: #cccccc; /* Grey out the non-current month days */
-}
-
-.calendar-day.today {
-    border: 2px solid red; /* Highlight the current day */
-    font-weight: bold;
-}
-.event-detail {
-    font-size: 0.75em;
-    color: #007BFF; /* Example color */
-    padding: 2px;
-    margin-top: 4px;
-    cursor: pointer;
-}
-
-.event-detail:hover {
-    color: #0056b3;
-}
-
-
-
-
-/* Footer Styles --------------------------------------------------------------------------------*/
-.footer {
-    text-align: center;
-    padding: 1rem 0;
-    background-color: #333;
-    color: white;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-}
-
-.social-link {
-    color: white;
-    padding: 0 10px;
-    text-decoration: none;
-}
-
-.social-link:hover {
-    text-decoration: underline;
-}
-
-/* Ensure body content does not go behind the footer */
-body {
-    padding-bottom: 60px; /* Adjust this value based on your footer's height */
-}
-
+/* Theming Variables */
 :root {
     --primary-color: #4a90e2;
-    --secondary-color: #333;
-    --background-color: #f5f5f5;
-    --text-color: #333;
-    --link-color: #4a90e2;
-    --hover-color: #357abd;
+    --text-color: #333333;
+    --text-light: #ffffff;
+    --bg-color: #f5f5f5;
+    --border-color: #eaeaea;
+}
+
+/* Apply Theme */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.calendar-container {
+    color: var(--text-color);
+}
+
+.calendar-nav {
+    background-color: var(--primary-color);
+}
+
+.calendar-grid-header {
+    background-color: var(--primary-color);
+}
+
+.event-detail {
+    background-color: var(--primary-color);
+    color: var(--text-light);
 }
 
 
 
-
-
-/* ---------------Contact Form Section */
+/* --------------------------------------------------------------------------------------Contact Form Section */
 .contact-form-section {
     width: 100%;
     max-width: 600px;
@@ -618,14 +604,14 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Contact Form Title */
+
 .contact-form-section h2 {
     font-size: 2em;
     color: #333;
     margin-bottom: 20px;
 }
 
-/* Form Styles */
+
 .contact-form-section form {
     display: flex;
     flex-direction: column;
@@ -635,7 +621,6 @@ body {
     font-family: inherit;
 }
 
-/* Input and Textarea Styles */
 .contact-form-section input,
 .contact-form-section textarea {
     width: calc(100% - 20px);
@@ -652,7 +637,7 @@ body {
     border-color: #74ebd5;
 }
 
-/* Button Styles */
+
 .contact-form-section button {
     padding: 15px;
     border: none;
@@ -669,7 +654,7 @@ body {
     background-color: #333;
 }
 
-/* Media Queries for Responsiveness */
+
 @media (max-width: 768px) {
     .contact-form-section {
         width: 90%;
@@ -678,7 +663,6 @@ body {
     }
 }
 
-/* Improvements for Visible Feedback */
 .contact-form-section .feedback-message {
     display: none;
     color: green;
@@ -695,7 +679,7 @@ body {
 
 
 
-/* ---------------Aboutt */
+/* ------------------------------------------------------------------------------------------------------------------Aboutt */
 
 
 body, html {
@@ -739,7 +723,7 @@ header p {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: all 0.3s ease-in-out;
-    transform: translateZ(0); /* For better performance on the hover effect */
+    transform: translateZ(0); 
 }
 
 .card:hover {
@@ -784,3 +768,35 @@ header p {
 .card:nth-child(2) { animation-delay: 0.4s; }
 .card:nth-child(3) { animation-delay: 0.6s; }
 .card:nth-child(4) { animation-delay: 0.8s; }
+
+
+
+
+
+/* Footer Styles ---------------------------------------------------------------------------------------------------------------------*/
+.footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+
+.social-links a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.social-links a:hover {
+    color: #1da1f2;
+}
+
+
+
+
+
+

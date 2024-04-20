@@ -1,49 +1,54 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const Calendar = {
         currentDate: new Date(),
         calendarContainer: document.querySelector('.calendar-grid'),
         calendarMonthYear: document.querySelector('.calendar-month-year'),
-        events: [], // Placeholder for events
+        events: [],
+        serverEndpoint: '/api/search-events', // Endpoint on your server for fetching events
 
-        init: async function() {
-            this.renderDayHeaders(); // Render day headers immediately
-            await this.fetchAndDisplayEvents(); // Fetch events asynchronously
+        init: async function () {
+            this.renderDayHeaders();
+            this.events = await this.fetchEvents();
             this.generateCalendar(this.currentDate);
             this.attachEventListeners();
         },
 
-        fetchAndDisplayEvents: async function() {
+        fetchEvents: async function () {
             try {
-                const response = await fetch('/api/economic-events');
-                if (!response.ok) throw new Error('Failed to fetch economic events');
-
+                const response = await fetch(this.serverEndpoint);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
                 const data = await response.json();
-                this.events = data.result.map(event => ({
-                    // Adjust these properties to match the Economic Events Calendar API structure
-                    date: new Date(event.date), // The event date
-                    name: event.title, // The event title
-                    comment: event.comment, // The event comment
-                    // Other properties can be added as needed
+                return data.map(event => ({
+                    ...event,
+                    start_ts: new Date(event.start_ts) // Adjusted for the API response
                 }));
-                this.displayEventsOnCalendar();
             } catch (error) {
-                console.error('Error fetching economic events:', error);
+                console.error('Error fetching events:', error);
+                return [];
             }
         },
 
-        displayEventsOnCalendar: function() {
+        displayEventsOnCalendar: function () {
             this.events.forEach(event => {
-                const eventDate = event.date.toISOString().slice(0, 10);
+                if (isNaN(event.start_ts.getTime())) {
+                    console.error(`Invalid date for event: ${event.name}`);
+                    return;
+                }
+                const eventDate = event.start_ts.toISOString().split('T')[0];
                 const dayCell = this.calendarContainer.querySelector(`[data-date="${eventDate}"]`);
                 if (dayCell) {
                     const eventElement = document.createElement('div');
                     eventElement.className = 'event-detail';
-                    eventElement.textContent = event.name; // Display the event name
-                    // Tooltip or modal can be added here to show event.comment on hover or click
+                    eventElement.textContent = event.name;
                     dayCell.appendChild(eventElement);
+                    dayCell.classList.add('has-event'); // Add this line
                 }
             });
         },
+
+        
 
         renderDayHeaders: function() {
             const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -81,7 +86,9 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 
         clearCalendar: function() {
-            this.calendarContainer.innerHTML = '';
+            while (this.calendarContainer.firstChild) {
+                this.calendarContainer.removeChild(this.calendarContainer.firstChild);
+            }
             this.renderDayHeaders();
         },
 
@@ -99,4 +106,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
     Calendar.init();
 });
-

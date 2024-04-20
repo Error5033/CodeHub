@@ -29,6 +29,7 @@ db.connect((err) => {
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
 // // ---------------------------------------------------------------Serve static files from the 'public' directory (if you have one)
 app.use(express.static('public'));
 
@@ -190,30 +191,28 @@ app.post('/api/save-article', (req, res) => {
 
 
 
+// // ---------------------------------------------------------------display events 
 
 
-app.get('/api/economic-events', async (req, res) => {
-    const options = {
-        method: 'GET',
-        url: 'https://economic-events-calendar.p.rapidapi.com/events',
-        params: { countries: 'GB' },
-        headers: {
-            'X-RapidAPI-Key': '7500e03755mshd6dfeb9e7696dbep15b2c6jsn463e282ead72',
-            'X-RapidAPI-Host': 'economic-events-calendar.p.rapidapi.com'
-        }
-    };
 
+const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNzk2NGIyOWItODcxNC00MzYzLWI0OWUtMGZhYTQyNThmNjliIiwia2V5X2lkIjoiMTc5ZTczYzQtNWVlMC00ZGI0LTgxMGItNWQyNDhjNDExN2JlIiwiaWF0IjoxNzEzNTIzNzIzfQ.yjU9uyTQTdDGEIA8AsQYOaSWeDTUfVOLpXDFDaLQ1Dk';
+const API_BASE_URL = 'https://api.datathistle.com/v1';
+
+// Endpoint to search for events with query 'love'
+app.get('/api/search-events', async (req, res) => {
+    const searchQuery = req.query.query || 'Network'; // Default to 'love' if no query parameter provided
     try {
-        const response = await axios.request(options);
+        const response = await axios.get(`${API_BASE_URL}/search`, {
+            params: { query: searchQuery },
+            headers: { 'Authorization': `Bearer ${API_KEY}` }
+        });
+        // Assuming the API response is in the expected format
         res.json(response.data);
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Failed to fetch economic events');
+        console.error('Error fetching events from API:', error.response ? error.response.data : error.message);
+        res.status(error.response ? error.response.status : 500).send('Server error while fetching events.');
     }
 });
-
-
-
 
 
 
