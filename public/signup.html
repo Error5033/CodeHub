@@ -65,7 +65,7 @@
         <a href="https://facebook.com" target="_blank">Facebook</a>
         <a href="https://twitter.com" target="_blank">Twitter</a>
         <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-        <!-- Removed duplicate Twitter link and corrected the name for consistency -->
+
     </div>
 </footer>
 
@@ -73,9 +73,7 @@
 
 
 <script>
-    // Existing script content...
-    
-    // Handle Newsletter Form Submission with Email Notification
+
     document.getElementById('newsletter-form').addEventListener('submit', function(e) {
         e.preventDefault();
     
@@ -86,7 +84,6 @@
             interests: Array.from(document.querySelectorAll("#newsletter-form input[type='checkbox']:checked")).map(checkbox => checkbox.value)
         };
     
-        // Assuming your server is set to accept JSON and you have configured CORS if needed
         fetch('/signup-newsletter', {
             method: 'POST',
             headers: {
@@ -102,7 +99,7 @@
         })
         .then(data => {
             alert("Thank you for signing up for our newsletter! Check your email for confirmation.");
-            // Optionally, hide the signup form or reset it
+
             document.getElementById('newsletter-form').reset();
             thankYouPopup.classList.remove('form-hidden'); // Display the thank you message if not using an alert
         })
@@ -115,7 +112,7 @@
 
     // Handle Login Form Submission with Redirect on Success
 document.getElementById('login-form').addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent the default form submission
+    e.preventDefault(); 
 
     const loginData = {
         username: document.getElementById('login-username').value,
@@ -129,7 +126,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
         },
         body: JSON.stringify(loginData)
     })
-    .then(response => response.json()) // Expecting JSON response from the server
+    .then(response => response.json())
     .then(data => {
         if (data.message === 'Login Successful') {
             // Store token in localStorage or session as needed
@@ -148,14 +145,14 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
 });
 
 function displayLoginErrorMessage(message) {
-    // Assuming an element with the ID 'login-error-message' exists for displaying login errors
+
     const errorMessageElement = document.getElementById('login-error-message');
     if (!errorMessageElement) {
         console.error('Login error message element not found');
         return;
     }
     errorMessageElement.textContent = message;
-    errorMessageElement.style.display = 'block'; // Make sure the element is visible
+    errorMessageElement.style.display = 'block'; 
 }
 
     </script>

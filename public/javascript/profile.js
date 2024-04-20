@@ -93,7 +93,7 @@ function displaySavedArticles(articles) {
     articles.forEach(article => {
         console.log('Raw Article Data:', article.article_data); // Log raw data
 
-        // Ensure article_data is an object by parsing the JSON string from the database
+
         let articleDetails = {};
         if (article.article_data) {
             try {
@@ -120,7 +120,6 @@ function displaySavedArticles(articles) {
 
 
 
-// Assuming fetchSavedArticles is correctly fetching the articles array
 document.addEventListener('DOMContentLoaded', fetchSavedArticles);
 
 

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const inputs = document.querySelectorAll('input, textarea');
 
-    // Add subtle animation to form inputs on focus
+
     inputs.forEach(input => {
         input.addEventListener('focus', () => {
             input.style.transform = 'translateY(-3px)';
@@ -57,6 +57,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error:', error);
         });
 
-        // Note: Additional UI feedback for error handling can be added here to inform the user
+
     });
 });

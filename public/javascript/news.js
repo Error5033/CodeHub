@@ -94,12 +94,12 @@ function saveArticle(index) {
     const token = localStorage.getItem('userToken');
     const articleData = {
         title: article.title,
-        // Include other data as needed
+    
     };
 
     const payload = {
         article_id: article.url,
-        article_data: articleData // Do not stringify here
+        article_data: articleData 
     };
 
     fetch('/api/save-article', {
@@ -119,7 +119,7 @@ function saveArticle(index) {
     .then(data => {
         if (data.message) {
             alert('Article saved successfully.');
-            // Further UI handling here
+  
         } else {
             throw new Error('Error saving article.');
         }

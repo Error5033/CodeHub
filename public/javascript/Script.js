@@ -62,15 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
             confirmPassword: document.querySelector('#register-form input[id="confirm-password"]').value,
         };
 
-        // Simple front-end validation for example purposes
         if (registrationData.password !== registrationData.confirmPassword) {
             alert("Passwords do not match.");
             return;
         }
 
-        // Sending the registration data to the server
         passwordStrengthText.textContent = "";
-        // Proceed with the AJAX request to register the user
+
         const username = document.querySelector('#register-form input[type="text"][placeholder="Username"]').value;
         const firstName = document.querySelector('#register-form input[type="text"][placeholder="First Name"]').value;
         const lastName = document.querySelector('#register-form input[type="text"][placeholder="Last Name"]').value;
@@ -91,25 +89,25 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => response.text())
         .then(data => {
-            alert(data); // Display response from the server
+            alert(data); 
         });
         
 });
 
 
 
-    // Newsletter form submission
+
     const newsletterForm = document.getElementById('newsletter-form');
     newsletterForm.addEventListener('submit', e => {
         e.preventDefault();
         thankYouPopup.classList.remove('form-hidden');
-        // Implementation for AJAX call if needed
+    
     });
 
 
     const element = document.querySelector('.element-class');
     if (element) {
-        // Safe to use `element` here
+
     }
     
 
@@ -119,10 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('DOMContentLoaded', () => {
         const element = document.querySelector('.element-class');
         if (element) {
-            // Element exists, safe to manipulate
-            // ... your code that manipulates the element ...
+
         }
-        // ... other code ...
+
     });
 
 

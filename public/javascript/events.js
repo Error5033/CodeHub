@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
         calendarContainer: document.querySelector('.calendar-grid'),
         calendarMonthYear: document.querySelector('.calendar-month-year'),
         events: [],
-        serverEndpoint: '/api/search-events', // Endpoint on your server for fetching events
+        serverEndpoint: '/api/search-events', 
 
         init: async function () {
             this.renderDayHeaders();
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const data = await response.json();
                 return data.map(event => ({
                     ...event,
-                    start_ts: new Date(event.start_ts) // Adjusted for the API response
+                    start_ts: new Date(event.start_ts) 
                 }));
             } catch (error) {
                 console.error('Error fetching events:', error);
