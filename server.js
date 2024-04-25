@@ -47,6 +47,10 @@ const transporter = nodemailer.createTransport({
 
 
 
+
+
+
+
 // // --------------------------------------------------------------- Contact Form Submission Endpoint
 app.post('/send-contact-email', (req, res) => {
     const { name, email, message } = req.body;
@@ -84,6 +88,11 @@ app.post('/signup-newsletter', (req, res) => {
         res.send('Signup successful!');
     });
 });
+
+
+
+
+
 
 
 
