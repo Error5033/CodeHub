@@ -74,40 +74,43 @@
 
 <script>
 
-    document.getElementById('newsletter-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-    
-        const formData = {
-            firstName: document.querySelector('#newsletter-form input[type="text"][placeholder="First Name"]').value,
-            lastName: document.querySelector('#newsletter-form input[type="text"][placeholder="Last Name"]').value,
-            email: document.querySelector('#newsletter-form input[type="email"]').value,
-            interests: Array.from(document.querySelectorAll("#newsletter-form input[type='checkbox']:checked")).map(checkbox => checkbox.value)
-        };
-    
-        fetch('/signup-newsletter', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email: formData.email }) // Only sending the email as per your server.js expectations
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text();
-        })
-        .then(data => {
-            alert("Thank you for signing up for our newsletter! Check your email for confirmation.");
+document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-            document.getElementById('newsletter-form').reset();
-            thankYouPopup.classList.remove('form-hidden'); // Display the thank you message if not using an alert
-        })
-        .catch((error) => {
-            console.error('There has been a problem with your fetch operation:', error);
-            alert("There was a problem with the signup. .");
-        });
+    const formData = {
+        firstName: document.querySelector('#newsletter-form input[type="text"][placeholder="First Name"]').value,
+        lastName: document.querySelector('#newsletter-form input[type="text"][placeholder="Last Name"]').value,
+        email: document.querySelector('#newsletter-form input[type="email"]').value,
+        interests: Array.from(document.querySelectorAll("#newsletter-form input[type='checkbox']:checked")).map(checkbox => checkbox.value)
+    };
+
+    fetch('/signup-newsletter', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData) // Sending all formData as per corrected script
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text();
+    })
+    .then(data => {
+        alert("Thank you for signing up for our newsletter! Check your email for confirmation.");
+
+        document.getElementById('newsletter-form').reset();
+        // Assuming thankYouPopup is defined earlier as a DOM element, if not, you should define it
+        const thankYouPopup = document.getElementById('thankYouPopup'); // Assuming there is an element with this ID
+        thankYouPopup.classList.remove('form-hidden'); // Display the thank you message if not using an alert
+    })
+    .catch((error) => {
+        console.error('There has been a problem with your fetch operation:', error);
+        alert("There was a problem with the signup: " + error.message);
     });
+});
+
     
 
     // Handle Login Form Submission with Redirect on Success

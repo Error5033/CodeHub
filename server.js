@@ -39,8 +39,8 @@ app.use(express.static('public'));
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'kzaksauskasss@gmail.com',
-        pass: 'vhpw jhgd hgjs mlnd'
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     }
 });
 
@@ -51,8 +51,8 @@ const transporter = nodemailer.createTransport({
 app.post('/send-contact-email', (req, res) => {
     const { name, email, message } = req.body;
     const mailOptions = {
-        from: 'kzaksauskasss@gmail.com',
-        to: 'kzaksauskasss@gmail.com', // Developer's email
+        from: process.env.EMAIL_FROM,
+        to: process.env.EMAIL_TO,
         subject: `New Contact Form Submission from ${name}`,
         text: `You have received a new message from your contact form.\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`
     };
@@ -70,6 +70,59 @@ app.post('/send-contact-email', (req, res) => {
 
 
 
+// ---------------------------------Endpoint for handling newsletter signups
+app.post('/signup-newsletter', (req, res) => {
+    const { firstName, lastName, email, interests } = req.body;
+
+
+    const query = 'INSERT INTO newsletter_signups (firstName, lastName, email, interests) VALUES (?, ?, ?, ?)';
+    db.query(query, [firstName, lastName, email, JSON.stringify(interests)], (err, results) => {
+        if (err) {
+            console.error('Database error:', err);
+            return res.status(500).send('Failed to sign up for newsletter');
+        }
+        res.send('Signup successful!');
+    });
+});
+
+
+
+
+
+
+document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = {
+        firstName: document.querySelector('#newsletter-form input[placeholder="First Name"]').value,
+        lastName: document.querySelector('#newsletter-form input[placeholder="Last Name"]').value,
+        email: document.querySelector('#newsletter-form input[type="email"]').value,
+        interests: Array.from(document.querySelectorAll("#newsletter-form input[type='checkbox']:checked")).map(checkbox => checkbox.value)
+    };
+
+    fetch('/signup-newsletter', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text();
+    })
+    .then(data => {
+        alert("Thank you for signing up for our newsletter! Check your email for confirmation.");
+        document.getElementById('newsletter-form').reset();
+        document.getElementById('thankYouPopup').classList.remove('form-hidden');
+    })
+    .catch((error) => {
+        console.error('There has been a problem with your fetch operation:', error);
+        alert("There was a problem with the signup: " + error.message);
+    });
+});
 
 
 
