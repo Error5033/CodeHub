@@ -89,43 +89,6 @@ app.post('/signup-newsletter', (req, res) => {
 
 
 
-
-document.getElementById('newsletter-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const formData = {
-        firstName: document.querySelector('#newsletter-form input[placeholder="First Name"]').value,
-        lastName: document.querySelector('#newsletter-form input[placeholder="Last Name"]').value,
-        email: document.querySelector('#newsletter-form input[type="email"]').value,
-        interests: Array.from(document.querySelectorAll("#newsletter-form input[type='checkbox']:checked")).map(checkbox => checkbox.value)
-    };
-
-    fetch('/signup-newsletter', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.text();
-    })
-    .then(data => {
-        alert("Thank you for signing up for our newsletter! Check your email for confirmation.");
-        document.getElementById('newsletter-form').reset();
-        document.getElementById('thankYouPopup').classList.remove('form-hidden');
-    })
-    .catch((error) => {
-        console.error('There has been a problem with your fetch operation:', error);
-        alert("There was a problem with the signup: " + error.message);
-    });
-});
-
-
-
 //  // --------------------------------------------------------------- User Registration Endpoint
 app.post('/register', async (req, res) => {
     console.log(req.body); // This will show you the entire request body
