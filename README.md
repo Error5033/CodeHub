@@ -48,7 +48,9 @@ This will start a local development server and allow you to preview the applicat
 * **Headline:**  Empowering Your Coding Skills
 * **Description:**  A platform for aspiring coders to learn and share knowledge. Offers resources, challenges users, and fosters a community atmosphere.
 * **Call to action:** Sign up for weekly newsletter.
-![Uploading Picture1.png…]()
+* 
+![Picture1](https://github.com/Karolis-Zak/CodeHub/assets/114151300/2161588d-f933-4a73-b1cc-a5633659f488)
+
 
 **News Page:**
 
